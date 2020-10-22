@@ -1,0 +1,5 @@
+app name: reddit-api-app
+description: a basic app to test reddit api
+redirect uri: http://localhost:8080
+personal use script: gIUKkZXSybpMyw
+secret: IR0VXfPQ9oTbH1CbGBsQX9QiRWs
