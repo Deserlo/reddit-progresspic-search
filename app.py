@@ -2,17 +2,22 @@
 import praw
 import datetime as dt
 from src.mongo import Mongo
+from decouple import config
 
-mongo = Mongo("mongodb+srv://eva:corona@cluster0-q2hqi.mongodb.net/Reddit?retryWrites=true&w=majority", 
-              "Reddit", 
-              "ProgressPics")
+MONGO_URI=config('MONGO_URI')
+client_id=config('CLIENT_ID')
+client_secret=config('CLIENT_SECRET')
+user_agent=config('USER_AGENT')
+username=config('USER_NAME')
+password=config('PASSWORD')
 
+mongo = Mongo(MONGO_URI, "Reddit", "ProgressPics")
 
-reddit = praw.Reddit(client_id='gIUKkZXSybpMyw', \
-                     client_secret='IR0VXfPQ9oTbH1CbGBsQX9QiRWs', \
-                     user_agent='reddit-api-app', \
-                     username='evaswayy', \
-                     password='Menudo65!')
+reddit = praw.Reddit(client_id=client_id, \
+                    client_secret=client_secret, \
+                    user_agent=user_agent, \
+                    username=username, \
+                    password=password)
 
 subreddit = reddit.subreddit('progresspics')
 
@@ -22,4 +27,4 @@ for post in top_subreddit:
     print(post.title, post.id)
     post = { "title": post.title, 
              "id": post.id }
-    mongo.insert_one(post)
+    #mongo.insert_one(post)
