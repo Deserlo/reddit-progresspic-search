@@ -15,7 +15,7 @@ password=config('PASSWORD')
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/home')
 def run_reddit_client():
     '''
     reddit = praw.Reddit(client_id=client_id, \
@@ -33,7 +33,7 @@ def run_reddit_client():
         post = { "title": post.title, 
                 "id": post.id }
     '''
-    return "Reddit Flask React App"
+    return { "title": "Reddit Flask React App" }
 
 if __name__=="__main__":
     app.run(debug=True)
