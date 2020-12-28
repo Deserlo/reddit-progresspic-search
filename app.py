@@ -17,7 +17,6 @@ app = Flask(__name__)
 
 @app.route('/home')
 def run_reddit_client():
-    '''
     reddit = praw.Reddit(client_id=client_id, \
                         client_secret=client_secret, \
                         user_agent=user_agent, \
@@ -26,14 +25,20 @@ def run_reddit_client():
 
     subreddit = reddit.subreddit('progresspics')
 
-    top_subreddit = subreddit.hot()
-
+    top_subreddit = subreddit.top(limit=3)
+    posts = []
     for post in top_subreddit:
         print(post.title, post.id)
+        '''
         post = { "title": post.title, 
                 "id": post.id }
-    '''
-    return { "title": "Reddit Flask React App" }
+        '''
+        posts.append(post)
+        
+    return { "data": [
+        {"id": post.id, "title": post.title}
+        for post  in posts
+    ]}
 
 if __name__=="__main__":
     app.run(debug=True)

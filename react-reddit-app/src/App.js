@@ -1,32 +1,31 @@
 import React,{useState,useEffect} from 'react';
 import './App.css';
 
-function App() {
-  const [data,setData]=useState([]);
-  const getData=()=>{
-    fetch('/home'
-    ,{
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    }
-    )
-      .then(function(response){
-        console.log(response);
-        return response.json();
-      })
-      .then(function(myJson) {
-        console.log(myJson);
-        setData(myJson)
-      });
+
+function List({ items, fallback }) {
+  if (!items || items.length === 0) {
+    return fallback;
+  } else {
+    console.log("type of ", typeof(items.data[0]));
+    console.log(items.data[0]);
+    return items.data.map(item => {
+      return <div key={item.id}>{item.title}</div>;
+    });
   }
-  useEffect(()=>{
-    getData()
-  },[])
+}
+
+const getItems = () => fetch('/home').then(res => res.json());
+
+function App() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    getItems().then(data => setItems(data));
+  }, []);
+
   return (
-    <div className="App">
-     {data.title}
+    <div>
+      <List items={items} fallback={"Loading..."} />
     </div>
   );
 }
