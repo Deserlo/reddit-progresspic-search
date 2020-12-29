@@ -1,5 +1,6 @@
 from flask import Flask
 import praw
+import pprint
 import datetime as dt
 #from src.mongo import Mongo
 from decouple import config
@@ -25,16 +26,17 @@ def run_reddit_client():
 
     subreddit = reddit.subreddit('progresspics')
 
-    top_subreddit = subreddit.top(limit=3)
+    top_subreddit = subreddit.top(limit=2)
     posts = []
     for post in top_subreddit:
-        print(post.title, post.id)
+        print(post.score, post.url, post.title, post.thumbnail, post.preview['images'][0]['resolutions'])
+        pprint.pprint(vars(post))
         '''
         post = { "title": post.title, 
                 "id": post.id }
         '''
         posts.append(post)
-        
+
     return { "data": [
         {"id": post.id, "title": post.title}
         for post  in posts
