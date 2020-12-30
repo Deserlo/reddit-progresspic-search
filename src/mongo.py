@@ -1,15 +1,14 @@
 from pymongo import MongoClient
 import datetime
+from decouple import config
 
 
 class Mongo(object):
-    '''
-    '''
-    def __init__(self, connection_string, database, collection):
-        self.connection_string = connection_string
-        self.database = database
-        self.collection = collection
-        self.client = MongoClient(self.connection_string).database.collection
+    
+
+    def __init__(self, mongo_uri):
+        self.connection_string = mongo_uri
+        self.client = MongoClient(self.connection_string).Reddit.ProgressPics
         
    
     def insert_many(self, list):

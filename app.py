@@ -2,7 +2,7 @@ from flask import Flask
 import praw
 import pprint
 import datetime as dt
-#from src.mongo import Mongo
+from src.mongo import Mongo
 from decouple import config
 
 
@@ -28,19 +28,23 @@ def run_reddit_client():
 
     top_subreddit = subreddit.top(limit=2)
     posts = []
+    MongoDB = Mongo(config('MONGO_URI'))
     for post in top_subreddit:
         print(post.score, post.url, post.title, post.thumbnail, post.preview['images'][0]['resolutions'])
         pprint.pprint(vars(post))
-        '''
-        post = { "title": post.title, 
-                "id": post.id }
-        '''
+        person = post.title.split("[")[0]
+        progress = post.title.split("[")[1].split("]")[0]
+        post = { "post_id": post.id, "post_title": post.title,"person_details": person, "progress": progress, "post_url": post.url, "post_thumbnail": post.thumbnail, "post_preview": post.preview['images'][0]['resolutions']}
         posts.append(post)
+        MongoDB.insert_one(post)
 
+    return { "data": { "title": "eyeyes", "id": "pewpoe"} }
+    '''
     return { "data": [
-        {"id": post.id, "title": post.title}
+        {"title": post.title, "id": post.id, "url": post.url, "thumbnail": post.thumbnail, "preview": post.preview['images'][0]['resolutions']}
         for post  in posts
     ]}
+    '''
 
 if __name__=="__main__":
     app.run(debug=True)
