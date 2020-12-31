@@ -26,15 +26,17 @@ def run_reddit_client():
 
     subreddit = reddit.subreddit('progresspics')
 
-    top_subreddit = subreddit.top(limit=2)
+    top_subreddit = subreddit.top(limit=5)
     posts = []
     MongoDB = Mongo(config('MONGO_URI'))
     for post in top_subreddit:
         print(post.score, post.url, post.title, post.thumbnail, post.preview['images'][0]['resolutions'])
-        pprint.pprint(vars(post))
-        person = post.title.split("[")[0]
-        progress = post.title.split("[")[1].split("]")[0]
-        post = { "post_id": post.id, "post_title": post.title,"person_details": person, "progress": progress, "post_url": post.url, "post_thumbnail": post.thumbnail, "post_preview": post.preview['images'][0]['resolutions']}
+        #pprint.pprint(vars(post))
+        person, progress = post.title.split("[")
+        gender, age, height = person.split("/")
+        progress = progress.split("]")[0]
+        post = { "post_id": post.id, "post_title": post.title,"person_details": person, "gender": gender, "age": age, "height": height, "progress": progress, \
+         "post_url": post.url, "post_thumbnail": post.thumbnail, "post_preview": post.preview['images'][0]['resolutions']}
         posts.append(post)
         MongoDB.insert_one(post)
 
