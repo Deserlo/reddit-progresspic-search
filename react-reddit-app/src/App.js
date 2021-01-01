@@ -6,10 +6,10 @@ function List({ items, fallback }) {
   if (!items || items.length === 0) {
     return fallback;
   } else {
-    console.log("type of ", typeof(items.data[0]));
-    console.log(items.data[0]);
-    return items.data.map(item => {
-      return <div key={item.id}>{item.title}</div>;
+    //console.log("type of ", typeof(items.data[0]));
+    //console.log(items.data[0]);
+    return items.map(item => {
+      return <div key={item.post_id}>{item.post_title}</div>;
     });
   }
 }
