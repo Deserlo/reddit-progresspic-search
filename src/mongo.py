@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson.json_util import dumps
 import datetime
 from decouple import config
 
@@ -33,6 +34,22 @@ class Mongo(object):
         '''
         '''
         self.client.update_one(query)
+
+    def find(self):
+        '''
+        '''
+        cursor = self.client.find({})
+        list_cur = list(cursor)
+        json_docs = dumps(list_cur)
+        return json_docs
+
+    def find_some(self, query):
+        '''
+        '''
+        cursor = self.client.find(query)
+        list_cur = list(cursor)
+        json_docs = dumps(list_cur)
+        return json_docs
 
     
 
