@@ -7,8 +7,15 @@ function First({ item, fallback }) {
     /*return <div key={item.post_id}><img src={item.post_thumbnail}/>{item.post_title}</div>;*/
     /*return <img src={item.post_thumbnail} alt={item.post_title}/>;*/
     console.log("hello");
-    console.log(item.post_thumbnail);
-    return <img src={item.post_thumbnail} alt="jj"/>
+    return <div id="viewer">
+        <div className="inner">
+            <div className="nav-next"></div>
+            <div className="nav-previous"></div>
+            <div className="toggle"></div>
+        </div>
+        <div className="caption">{item.post_title}</div>
+        <div className="image"><img src={item.post_thumbnail} alt="jj"/></div>
+    </div> 
 }
 
 const getItem = () => fetch('/first').then(res => res.json());
@@ -24,16 +31,7 @@ function Viewer() {
 
 
     return (
-        <div id="viewer">
-            <div className="inner">
-                <div className="nav-next"></div>
-                <div className="nav-previous"></div>
-                <div className="toggle"></div>
-            </div>
-            <div className="caption">caption</div>
-            <div className="image"><First item={item}></First></div>
-        </div>
-
+        <First item={item}/>
     );
 }
 
