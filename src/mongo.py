@@ -1,7 +1,9 @@
 from pymongo import MongoClient
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 import datetime
 from decouple import config
+import pprint
 
 
 class Mongo(object):
@@ -42,6 +44,12 @@ class Mongo(object):
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
         return json_docs
+
+    def find_one(self):
+        json_doc = dumps(self.client.find_one({"_id": ObjectId("5fefa122384d09c315b12eed")}))
+        #pprint.pprint(self.client.find_one({"_id": ObjectId("5fefa122384d09c315b12eed")}))
+        #json_doc = dumps(list_cur)
+        return json_doc
 
     def find_some(self, query):
         '''
