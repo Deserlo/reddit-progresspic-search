@@ -19,4 +19,4 @@ You will also see any lint errors in the console.
 
 
 ### Screen Capture
-![UI](https://raw.githubusercontent.com/Deserlo/reddit-api-app/master/screenshot.png)
+![UI](https://github.com/Deserlo/reddit-progresspic-search/blob/main/screenshot.png)
