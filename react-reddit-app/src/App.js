@@ -1,4 +1,3 @@
-import React,{useState,useEffect} from 'react';
 import './App.css';
 import Main from './components/Main';
 import './main.css';
@@ -38,7 +37,7 @@ function App() {
 
 function App(){
   return(
-    <Main/>
+    <Main></Main>
   )
 }
 

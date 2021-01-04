@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import './Thumbnails.css';
+
 
 
 function List({ items, fallback }) {
@@ -10,7 +10,11 @@ function List({ items, fallback }) {
       //console.log(items.data[0]);
       return items.map(item => {
         /*return <div key={item.post_id}><img src={item.post_thumbnail}/>{item.post_title}</div>;*/
-        return <img src={item.post_thumbnail}/>;
+        /*return <img src={item.post_thumbnail} alt={item.post_title}/>;*/
+        return <article><a className="thumbnail" href={item.post_thumbnail} data-position="left center"><img src={item.post_thumbnail} alt="jj"/></a>
+        <h2>{item.post_title}</h2>
+        <p>{item.progress}</p>
+        </article>
       });
     }
   }
