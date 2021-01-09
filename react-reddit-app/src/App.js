@@ -1,11 +1,11 @@
 import './App.css';
-import Main from './components/Main';
+import Container from './components/Container';
 import './main.css';
 
 
 function App(){
   return(
-    <Main></Main>
+    <Container></Container>
   )
 }
 

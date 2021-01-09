@@ -17,7 +17,6 @@ render() {
             onChange={this.handleCheckboxChange}
         />
         <span>Weight Loss</span>
-
         </label>
         <label>
         <Checkbox

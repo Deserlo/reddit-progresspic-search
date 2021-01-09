@@ -15,11 +15,6 @@ def retrieve_posts():
     return docs
 
 
-@app.route('/first')
-def retrieve_first():
-    doc = MongoDB.find_one()
-    print(doc)
-    return doc
 
 if __name__=="__main__":
     app.run(debug=True)
