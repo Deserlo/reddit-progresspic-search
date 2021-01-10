@@ -1,50 +1,52 @@
 import React,{useState,useEffect} from 'react';
 import Header from './Header';
+import './image.css';
 
-
-function List({ items, fallback }) {
-    if (!items || items.length === 0) {
-      return fallback;
-    } else {
-      console.log("first item:", items[0]);
-      return items.map(item => {
-        return <article><a className="thumbnail" href={item.post_thumbnail} data-position="left center"><img src={item.post_thumbnail} alt="jj"/></a>
-        <h2>{item.post_title}</h2>
-        <p>{item.progress}</p>
-        </article>
-      });
-    }
-  }
-
-
-
-function First({ items, fallback }) {
-    if (!items || items.length === 0) {
-        return fallback;
-    } else {
-        console.log("First items ", items[0]);
-        return <div id="viewer">
-            <div className="inner">
-                <div className="nav-next"></div>
-                <div className="nav-previous"></div>
-                <div className="toggle"></div>
-            </div>
-            <div className="caption">{items[0].post_title}</div>
-            <div className="image"><img src={items[0].post_thumbnail} alt="jj"/></div>
-        </div> 
-    }
-}
 
 
 const getItems = () => fetch('/home').then(res => res.json());
 
-function Container() {
+function Container({ fallback}) {
+
+    const [title, setTitle] = useState("");
+    const [src, setSrc] = useState("");
     const [items, setItems] = useState([]);
+    
+   const showViewer = (title, thumbnail_src) => {
+       setTitle(title);
+       setSrc(thumbnail_src);
+   };
 
     useEffect(() => {
         getItems().then(data => setItems(data));
     }, []);
 
+
+    function List({items, fallback}) {
+
+        if (!items || items.length === 0) {
+          return fallback;
+        } else {
+          return items.map(item => {
+            return <article><div className="thumbnail"  name={item.post_thumbnail} onClick={() => showViewer(item.post_title, item.post_thumbnail)}  data-position="left center"><img src={item.post_thumbnail} alt="jj"/></div>
+            <h2>{item.post_title}</h2>
+            </article>
+          });  
+        }   
+      }
+
+
+    function First({items, fallback}){
+        return  <div id="viewer">
+            <div className="inner">
+                <div className="nav-next"></div>
+                <div className="nav-previous"></div>
+                <div className="toggle"></div>
+            </div>
+            <div className="caption">{title}</div>
+            <div className="image"><img src={src} /></div>
+        </div> 
+    }
 
     return (
         <div>
@@ -55,7 +57,7 @@ function Container() {
                     <List items={items} fallback={"Loading..."}/>
                 </section>
             </div>
-            <First items={items} fallback={"Loading..."}/>
+                <First items={items}/>
         </div>
     );
 }
