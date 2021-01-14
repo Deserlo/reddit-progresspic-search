@@ -17,6 +17,31 @@ function Container({ fallback }) {
     getItems().then((data) => setItems(data));
   }, []);
 
+  const handleSubmit = (e)=> {
+    e.preventDefault();
+    console.log(e.target.gender.value);
+    console.log(e.target.type.value);
+    let items = fetch("/search").then((res) => res.json().then((data)=>setItems(data)));
+  }
+
+  function FilterNav() {
+
+      return (
+        <div>
+            <h1>Show Me</h1>
+          <form onSubmit = {handleSubmit}>
+            <label> Gender
+              <input type="text" name="gender"/>
+            </label>
+            <label> Progress Type
+            <input type="text" name="type"/>
+            </label>
+            <input type="submit"/>
+          </form>
+        </div>
+      );
+  }
+
   function List({ items, fallback }) {
     if (!items || items.length === 0) {
       return fallback;
@@ -59,7 +84,7 @@ function Container({ fallback }) {
     <div>
       <div id="main">
         <h1>Progress Pic Search</h1>
-        <Header />
+        <FilterNav/>
         <section id="thumbnails">
           <List items={items} fallback={"Loading..."} />
         </section>
