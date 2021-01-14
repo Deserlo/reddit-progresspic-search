@@ -21,7 +21,8 @@ function Container({ fallback }) {
     e.preventDefault();
     console.log(e.target.gender.value);
     console.log(e.target.type.value);
-    let items = fetch("/search").then((res) => res.json().then((data)=>setItems(data)));
+    let query = "/search/" + e.target.gender.value;
+    let items = fetch(query).then((res) => res.json().then((data)=>setItems(data)));
   }
 
   function FilterNav() {

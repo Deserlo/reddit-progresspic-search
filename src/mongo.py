@@ -38,9 +38,10 @@ class Mongo(object):
     def find(self):
         '''
         '''
-        cursor = self.client.find({}).limit(page_size)
+        cursor = self.client.find({})
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
+        print("finding all...")
         return json_docs
 
     def find_one(self):
@@ -56,6 +57,7 @@ class Mongo(object):
         cursor = self.client.find(query)
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
+        print("filtering..")
         return json_docs
 
     def page(self, last_id):
