@@ -15,8 +15,7 @@ app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 @app.route('/')
 def index():
-    return "hello world!"
-    # return app.send_static_file('index.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/home')
