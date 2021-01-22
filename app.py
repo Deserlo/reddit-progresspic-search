@@ -7,12 +7,13 @@ from decouple import config
 
 MongoDB = Mongo(config('MONGO_URI'))
 
-app = Flask(__name__)
+#app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 
 @app.route('/')
-def hello():
-    return "hello, world!"
+def index():
+    return app.send_static_file('index.html')
 
 
 @app.route('/home')
@@ -36,4 +37,4 @@ def filter_posts(args):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
