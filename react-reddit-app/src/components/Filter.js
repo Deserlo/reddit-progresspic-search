@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
+import List from './List';
 
 const getItems = () => fetch("/home").then((res) => res.json());
 
-function FilterNav() {
-
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    getItems().then((data) => setItems(data));
-  }, []);
+function Filter() {
+    const [items, setItems] = useState([]);
 
     function handleSubmit(e) {
       e.preventDefault();
       console.log("submit");
-      let items = fetch('/search').then(res => res.json()).then(res => console.log(res));
-      setItems(items);
+      fetch('/search').then(res => res.json()).then(res => console.log(res));
     }
+
+    useEffect(() => {
+        getItems().then((data) => setItems(data));
+      }, []);
+
+
+    function parentFunction(data_from_child){
+        console.log(data_from_child);
+    }
+
+
+
     return (
-      <div>
+      <div id="Header">
           <h1>Show Me</h1>
         <form action="" onSubmit={handleSubmit}>
           <label>
@@ -29,9 +36,9 @@ function FilterNav() {
           </label>
           <input type="submit"  method="get" value="Submit"/>
         </form>
-        <div items={items}></div>
+      <List functionCallFromParent={this.parentFunction.bind(this)}/>
       </div>
     );
-}
+  }
 
-export default FilterNav;
+export default Filter;
