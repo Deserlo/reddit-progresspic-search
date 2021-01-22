@@ -1,11 +1,13 @@
 from flask import Flask
-
+import os
 import pprint
 import datetime as dt
 from src.mongo import Mongo
 from decouple import config
 
-MongoDB = Mongo(config('MONGO_URI'))
+
+MONGO_URI = os.getenv("MONGO_URI")
+MongoDB = Mongo(MONGO_URI)
 
 #app = Flask(__name__)
 app = Flask(__name__, static_folder='../build', static_url_path='/')
