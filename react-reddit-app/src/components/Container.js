@@ -32,12 +32,12 @@ function Container({ fallback }) {
             <h1>Show Me</h1>
           <form onSubmit = {handleSubmit}>
             <label> Gender
-              <input type="text" name="gender"/>
+              <input type="text" name="gender" disabled/>
             </label>
             <label> Progress Type
-            <input type="text" name="type"/>
+            <input type="text" name="type" disabled/>
             </label>
-            <input type="submit"/>
+            <input type="submit" disabled/>
           </form>
         </div>
       );

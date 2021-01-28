@@ -22,19 +22,16 @@ def index():
 @app.route('/home')
 def retrieve_posts():
     docs = MongoDB.find()
-    print("Home..")
     return docs
 
 
 @app.route('/search/<args>', methods=['GET'])
 def filter_posts(args):
     print("filtering..")
-    print(str(args))
     if str(args) == "M":
         query = {"gender": "M"}
     if str(args) == "F":
         query = {"gender": "F"}
-    #query = {"gender": "F", "age": {"$gt": '24'}}
     docs = MongoDB.filter(query)
     return docs
 
