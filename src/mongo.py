@@ -44,13 +44,6 @@ class Mongo(object):
         print("finding all...")
         return json_docs
 
-    def find_one(self):
-        json_doc = dumps(self.client.find_one(
-            {"_id": ObjectId("5fefa122384d09c315b12eed")}))
-        # pprint.pprint(self.client.find_one({"_id": ObjectId("5fefa122384d09c315b12eed")}))
-        # json_doc = dumps(list_cur)
-        return json_doc
-
     def filter(self, query):
         '''
         '''
