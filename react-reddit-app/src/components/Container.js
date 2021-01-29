@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import Header from "./Header";
 
 const getItems = () => fetch("/home").then((res) => res.json());
@@ -17,6 +18,20 @@ function Container({ fallback }) {
     getItems().then((data) => setItems(data));
   }, []);
 
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    //alert(JSON.stringify(data));
+    //alert(data.gender);
+    //alert(data.type);
+    let query = "/home"
+    if (data.gender != "" ) {
+      query = "/search/" + data.gender;
+    }
+    //alert(query);
+    let items = fetch(query).then((res) => res.json().then((data)=>setItems(data)));
+  }
+
+/*
   const handleSubmit = (e)=> {
     e.preventDefault();
     console.log(e.target.gender.value);
@@ -24,20 +39,27 @@ function Container({ fallback }) {
     let query = "/search/" + e.target.gender.value;
     let items = fetch(query).then((res) => res.json().then((data)=>setItems(data)));
   }
+*/
 
   function FilterNav() {
 
       return (
         <div>
             <h1>Show Me</h1>
-          <form onSubmit = {handleSubmit}>
-            <label> Gender
-              <input type="text" name="gender" disabled/>
-            </label>
-            <label> Progress Type
-            <input type="text" name="type" disabled/>
-            </label>
-            <input type="submit" disabled/>
+          <form onSubmit = {handleSubmit(onSubmit)}>
+        <select name="gender" ref={register}>
+          <option value="">Select..</option>
+          <option value="F">F</option>
+          <option value="M">M</option>
+          <option value="Cat">Cat</option>
+        </select>
+  
+        <select name="type" ref={register}>
+          <option value="">Select..</option>
+          <option value="L">Loss</option>
+          <option value="G">Gain</option>
+        </select>
+            <input type="submit"/>
           </form>
         </div>
       );
@@ -54,9 +76,8 @@ function Container({ fallback }) {
               className="thumbnail"
               name={item.post_thumbnail}
               onClick={() => showViewer(item.post_title, item.post_url)}
-              data-position="left center"
-            >
-              <img src={item.post_thumbnail} alt="jj" />
+              data-position="left center">
+              <img src={item.post_thumbnail} alt="jj"/>
             </div>
             <h2>{item.post_title}</h2>
           </article>
@@ -87,7 +108,7 @@ function Container({ fallback }) {
         <h1>Progress Pic Search</h1>
         <FilterNav/>
         <section id="thumbnails">
-          <List items={items} fallback={"Loading..."} />
+          <List items={items}  fallback={"Loading..."} />
         </section>
       </div>
       <First items={items} />
