@@ -28,10 +28,8 @@ def retrieve_posts():
 @app.route('/search/<args>', methods=['GET'])
 def filter_posts(args):
     print("filtering..")
-    if str(args) == "M":
-        query = {"gender": "M"}
-    if str(args) == "F":
-        query = {"gender": "F"}
+    query = {"gender": str(args)}
+    print(query)
     docs = MongoDB.filter(query)
     return docs
 
