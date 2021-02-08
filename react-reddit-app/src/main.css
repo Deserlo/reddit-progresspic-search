@@ -7,9 +7,26 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-.view {
-  width: 75%;
-  height: 75%;
+@media screen and (min-width: 480px) {
+  .modal-modal {
+    display: none;
+  }
+  .view {
+    width: 70%;
+    height: 70%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .view {
+    width: 100%;
+    height: 70%;
+  }
+  #viewer .slide .caption {
+    /*color: black;*/
+    padding: 0;
+    bottom: 0;
+  }
 }
 
 html,
@@ -1330,109 +1347,112 @@ body.is-preload-1 #main {
   z-index: 1;
 }
 
-#viewer .slide .caption {
-  background-image: -moz-linear-gradient(
-    bottom,
-    rgba(16, 16, 16, 0.75),
-    rgba(16, 16, 16, 0.25) 80%,
-    rgba(16, 16, 16, 0)
-  );
-  background-image: -webkit-linear-gradient(
-    bottom,
-    rgba(16, 16, 16, 0.75),
-    rgba(16, 16, 16, 0.25) 80%,
-    rgba(16, 16, 16, 0)
-  );
-  background-image: -ms-linear-gradient(
-    bottom,
-    rgba(16, 16, 16, 0.75),
-    rgba(16, 16, 16, 0.25) 80%,
-    rgba(16, 16, 16, 0)
-  );
-  background-image: linear-gradient(
-    bottom,
-    rgba(16, 16, 16, 0.75),
-    rgba(16, 16, 16, 0.25) 80%,
-    rgba(16, 16, 16, 0)
-  );
-  padding: 2em 2em 0.75em 2em;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  color: rgba(255, 255, 255, 0.5);
-  z-index: 1;
-}
+/*eva*/
+@media screen and (min-width: 980px) {
+  #viewer .slide .caption {
+    background-image: -moz-linear-gradient(
+      bottom,
+      rgba(16, 16, 16, 0.75),
+      rgba(16, 16, 16, 0.25) 80%,
+      rgba(16, 16, 16, 0)
+    );
+    background-image: -webkit-linear-gradient(
+      bottom,
+      rgba(16, 16, 16, 0.75),
+      rgba(16, 16, 16, 0.25) 80%,
+      rgba(16, 16, 16, 0)
+    );
+    background-image: -ms-linear-gradient(
+      bottom,
+      rgba(16, 16, 16, 0.75),
+      rgba(16, 16, 16, 0.25) 80%,
+      rgba(16, 16, 16, 0)
+    );
+    background-image: linear-gradient(
+      bottom,
+      rgba(16, 16, 16, 0.75),
+      rgba(16, 16, 16, 0.25) 80%,
+      rgba(16, 16, 16, 0)
+    );
+    padding: 2em 2em 0.75em 2em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+  }
 
-#viewer .slide .caption h2,
-#viewer .slide .caption h3,
-#viewer .slide .caption h4,
-#viewer .slide .caption h5,
-#viewer .slide .caption h6 {
-  color: #fff;
-}
+  #viewer .slide .caption h2,
+  #viewer .slide .caption h3,
+  #viewer .slide .caption h4,
+  #viewer .slide .caption h5,
+  #viewer .slide .caption h6 {
+    color: #fff;
+  }
 
-#viewer .slide .image {
-  -moz-transition: opacity 0.5s ease-in-out;
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -ms-transition: opacity 0.5s ease-in-out;
-  transition: opacity 0.5s ease-in-out;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0;
-}
+  #viewer .slide .image {
+    -moz-transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+  }
 
-#viewer .slide:before {
-  -moz-animation: spinner 1s linear infinite;
-  -webkit-animation: spinner 1s linear infinite;
-  -ms-animation: spinner 1s linear infinite;
-  animation: spinner 1s linear infinite;
-  -moz-transition: opacity 0.5s ease-in-out;
-  -webkit-transition: opacity 0.5s ease-in-out;
-  -ms-transition: opacity 0.5s ease-in-out;
-  transition: opacity 0.5s ease-in-out;
-  content: "";
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 3em;
-  height: 3em;
-  background-image: url("images/spinner.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin: -1.5em 0 0 -1.5em;
-  opacity: 0;
-}
+  #viewer .slide:before {
+    -moz-animation: spinner 1s linear infinite;
+    -webkit-animation: spinner 1s linear infinite;
+    -ms-animation: spinner 1s linear infinite;
+    animation: spinner 1s linear infinite;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3em;
+    height: 3em;
+    background-image: url("images/spinner.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: -1.5em 0 0 -1.5em;
+    opacity: 0;
+  }
 
-#viewer .slide.loading:before {
-  opacity: 1;
-}
+  #viewer .slide.loading:before {
+    opacity: 1;
+  }
 
-#viewer .slide.active .image {
-  opacity: 1;
-}
+  #viewer .slide.active .image {
+    opacity: 1;
+  }
 
-body.fullscreen #viewer {
-  width: 100%;
-}
+  body.fullscreen #viewer {
+    width: 100%;
+  }
 
-body.fullscreen #viewer .inner .toggle {
-  background-image: url("images/open.svg");
-}
+  body.fullscreen #viewer .inner .toggle {
+    background-image: url("images/open.svg");
+  }
 
-body.is-preload-1 #viewer {
-  opacity: 0;
-}
+  body.is-preload-1 #viewer {
+    opacity: 0;
+  }
 
-body.is-preload-2 #viewer .slide {
-  opacity: 0;
+  body.is-preload-2 #viewer .slide {
+    opacity: 0;
+  }
 }
 
 @media screen and (max-width: 1280px) {
@@ -1488,6 +1508,7 @@ body.is-preload-2 #viewer .slide {
     -ms-transition-delay: 0s;
     transition-delay: 0s;
     opacity: 0;
+    opacity: 1;
   }
 
   #viewer .inner .toggle {
