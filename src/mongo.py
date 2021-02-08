@@ -22,10 +22,11 @@ class Mongo(object):
     def insert_one(self, doc):
         '''
         '''
-        self.client.insert_one(doc)
+        self.client.update({"post_id": doc["post_id"]}, doc, upsert=True)
 
     def delete_many(self):
         '''
+        Deletes all documents
         '''
         count = self.client.delete_many({})
         print(count.deleted_count, " documents deleted.")
@@ -37,11 +38,20 @@ class Mongo(object):
 
     def find(self):
         '''
+        Finds all documents 
         '''
         cursor = self.client.find({})
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
-        print("finding all...")
+        return json_docs
+
+    def get_random(self):
+        '''
+        Finds random documents 
+        '''
+        cursor = self.client.aggregate([{"$sample": {"size": 20}}])
+        list_cur = list(cursor)
+        json_docs = dumps(list_cur)
         return json_docs
 
     def filter(self, query):
@@ -50,7 +60,6 @@ class Mongo(object):
         cursor = self.client.find(query)
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
-        print("filtering..")
         return json_docs
 
     def page(self, last_id):
