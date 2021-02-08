@@ -4,6 +4,7 @@ import pprint
 import datetime as dt
 from src.mongo import Mongo
 from decouple import config
+import pprint
 
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -21,14 +22,14 @@ def index():
 
 @app.route('/home')
 def retrieve_posts():
-    docs = MongoDB.find()
+    docs = MongoDB.get_random()
     return docs
 
 
-@app.route('/search/<args>', methods=['GET'])
-def filter_posts(args):
+@app.route('/search/<gender>/<type>', methods=['GET'])
+def filter_posts(gender=None, type=0):
     print("filtering..")
-    query = {"gender": str(args)}
+    query = {"gender": str(gender), "type": int(type)}
     print(query)
     docs = MongoDB.filter(query)
     return docs
