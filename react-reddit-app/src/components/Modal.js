@@ -11,14 +11,14 @@ const Modal = (props) => {
     name="times"
     onClick={closeModal}
     style={{
-      color: '#000000',
+      color: 'white',
       padding: '10px',
       cursor: 'pointer',
       backgroundColor: 'transparent',
       border: 0,
       position: 'absolute',
-      top: '0.3rem',
-      right: '0.5rem',
+      top: '-2.5rem',
+      right: '0.3rem',
     }}
     >X</div>
   );

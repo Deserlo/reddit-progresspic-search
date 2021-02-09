@@ -16,7 +16,7 @@ function Container({ fallback }) {
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState(false);
 
-  const showViewer = (title, thumbnail_src, link, status=true) => {
+  const showViewer = (title, thumbnail_src, link, status) => {
     setTitle(title);
     setSrc(thumbnail_src);
     setLink(link);
@@ -123,7 +123,7 @@ function Container({ fallback }) {
         <div className="slide active">
         <div className="caption">{title}</div>
         <div className="image">
-        <a href={"https://reddit.com"+ link} target="_blank"><img className="view" src={src}/></a> 
+        {/*<a href={"https://reddit.com"+ link} target="_blank">*/}<img className="view" src={src}/>{/*</a> */}
         </div>
         </div>
       </div>
@@ -140,8 +140,8 @@ function Container({ fallback }) {
         <h1>Progress Pic Search</h1>
         <FilterNav/>
         <div className="modal-modal">
-        { status && (<Modal closeModal={() => setStatus(false)}><First items={items} /></Modal>)}
-  </div>
+          { status && (<Modal closeModal={() => setStatus(false)}><First items={items} /></Modal>)}
+        </div>
         <section id="thumbnails">
           <List items={items}  fallback={"Loading..."} />
         </section>
