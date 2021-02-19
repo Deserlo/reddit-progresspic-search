@@ -36,7 +36,7 @@ function Container({ fallback }) {
       args+= "prop" + property + "="+ data[property];
     }
     for (const property in data){
-      if (data[property] == "all" || data[property].includes("0-") ){
+      if (data[property] == "all" || data[property].startsWith("0-") ){
         delete data[property];
       }
     }
