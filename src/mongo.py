@@ -22,7 +22,8 @@ class Mongo(object):
     def insert_one(self, doc):
         '''
         '''
-        self.client.update({"post_id": doc["post_id"]}, doc, upsert=True)
+        self.client.update(
+            {"post_id": doc["post_id"], "manual_fix": False}, doc, upsert=True)
 
     def delete_many(self):
         '''
@@ -38,7 +39,7 @@ class Mongo(object):
 
     def find(self):
         '''
-        Finds all documents 
+        Finds all documents
         '''
         cursor = self.client.find({})
         list_cur = list(cursor)
@@ -47,7 +48,7 @@ class Mongo(object):
 
     def get_random(self):
         '''
-        Finds random documents 
+        Finds random documents
         '''
         cursor = self.client.aggregate([{"$sample": {"size": 20}}])
         list_cur = list(cursor)
@@ -70,7 +71,15 @@ class Mongo(object):
 
 
 '''
-query = {"gender": "F", "age": {"$gt": '40'}}
+myQuery = {"$and": [{"$or": [{"gender": "F"}, {"gender": "M"}]},
+                    {"$or": [{"type": 1}, {"type": 2}]},
+                    {"age": {"$gte": "28", "$lte": "42"}},
+                    {"starting_lbs": {"$gte": 200, "$lte": 350}},
+                    {"change_in_lbs": {"$gte": 20, "$lte": 100}}
+                    ]}
+
 MongoDB = Mongo(config('MONGO_URI'))
-print(MongoDB.filter(query))
+docs = MongoDB.filter(myQuery)
+print(docs)
+
 '''
