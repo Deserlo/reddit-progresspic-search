@@ -22,7 +22,7 @@ def index():
 
 @app.route('/home')
 def retrieve_posts():
-    docs = MongoDB.get_random()
+    docs = MongoDB.find()
     return docs
 
 
