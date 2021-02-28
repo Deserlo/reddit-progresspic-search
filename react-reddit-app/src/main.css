@@ -1468,7 +1468,7 @@ body.is-preload-1 #main {
 
 @media screen and (max-width: 980px) {
   #viewer {
-    width: 100%;
+    width: calc(100% - 19em);
   }
 
   #viewer .inner .toggle {
