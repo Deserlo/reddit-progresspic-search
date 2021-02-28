@@ -1504,6 +1504,7 @@ body.is-preload-1 #main {
 
 @media screen and (max-width: 480px) {
   #viewer {
+    /*eva*/
     width: 100%;
     -moz-transition: opacity 0.5s ease;
     -webkit-transition: opacity 0.5s ease;

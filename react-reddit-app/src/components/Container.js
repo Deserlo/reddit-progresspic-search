@@ -49,7 +49,7 @@ function Container({ fallback }) {
 
       return (
       <div>
-          <h1>Show Me</h1>
+          <h1>Options:</h1>
           <form onSubmit = {handleSubmit(onSubmit)}>
         <select name="gender" ref={register}>
           <option value="all">Gender</option>
@@ -214,11 +214,10 @@ function FilterQuery({query}){
 }
 
 
-
   return (
     <div>
       <div id="main">
-        <h1>Progress Pic Search</h1>
+        <h1>Find Me Progress Photos</h1>
         <FilterNav/>
         <FilterQuery query={query} />
         <div className="modal-modal">
