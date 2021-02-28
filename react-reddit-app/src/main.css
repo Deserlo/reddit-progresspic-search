@@ -1300,7 +1300,8 @@ body.is-preload-1 #main {
   top: 0;
   width: 4em;
   height: 4em;
-  background-image: url("images/close.svg");
+  /*eva*/
+  /*background-image: url("images/close.svg");*/
   background-repeat: no-repeat;
   background-size: 64px 64px;
   cursor: pointer;
@@ -1317,7 +1318,8 @@ body.is-preload-1 #main {
   width: 6em;
   height: 6em;
   margin-top: -3em;
-  background-image: url("images/arrow.svg");
+  /*eva*/
+  /*background-image: url("images/arrow.svg");*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
