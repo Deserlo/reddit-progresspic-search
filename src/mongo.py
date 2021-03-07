@@ -50,7 +50,7 @@ class Mongo(object):
         '''
         Finds random documents
         '''
-        cursor = self.client.aggregate([{"$sample": {"size": 20}}])
+        cursor = self.client.aggregate([{"$sample": {"size": 50}}])
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
         return json_docs
