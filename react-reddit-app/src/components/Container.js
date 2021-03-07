@@ -226,7 +226,7 @@ function FilterQuery({query}){
           { status && (<Modal closeModal={() => setStatus(false)}><First items={items} /></Modal>)}
         </div>
         <section id="thumbnails">
-          <List items={items}  fallback={"Loading..."} />
+          <List items={items}  fallback={"No results found."} />
         </section>
       </div>
       <First items={items} />
