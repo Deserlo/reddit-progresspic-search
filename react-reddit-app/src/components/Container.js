@@ -122,6 +122,7 @@ function Container({ fallback }) {
         </select>
         <select name="starting" ref={register}>
           <option value="0-2000">Starting Weight</option>
+          <option value="1-99">0-99</option>
           <option value="100-119">100-119</option>
           <option value="120-139">120-139</option>
           <option value="140-159">140-159</option>
@@ -136,6 +137,7 @@ function Container({ fallback }) {
         </select>
         <select name="current" ref={register}>
           <option value="0-2000">Goal Weight</option>
+          <option value="1-99">0-99</option>
           <option value="100-119">100-119</option>
           <option value="120-139">120-139</option>
           <option value="140-159">140-159</option>
