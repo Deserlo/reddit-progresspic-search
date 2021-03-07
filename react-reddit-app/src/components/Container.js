@@ -199,7 +199,7 @@ function Container({ fallback }) {
           <div className="toggle"></div>
         </div>
         <div className="slide active">
-        <div className="caption">{title}</div>
+        <a href={"https://reddit.com"+ link} target="_blank"><div className="caption">{title}</div></a>
         <div className="image">
         {/*<a href={"https://reddit.com"+ link} target="_blank">*/}<img className="view" src={src}/>{/*</a> */}
         </div>
