@@ -50,6 +50,13 @@ function Container({ fallback }) {
     setQuery(JSON.stringify(data));
     let query = "/search/" + args;
     let items = fetch(query).then((res) => res.json().then((data)=>setItems(data)));
+    let items = fetch(query).then((res) => res.json().then((data) => {
+      setItems(data);
+      setSrc(data[0].post_url);
+      setTitle(data[0].post_title);
+      setLink(data[0].post_url);
+    }
+    ));
   }
 
   function FilterNav() {
