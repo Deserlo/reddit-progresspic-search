@@ -6,8 +6,8 @@ import Modal from './Modal';
 const getItems = () => fetch("/home").then((res) => res.json());
 
 function Container({ fallback }) {
-  const [title, setTitle] = useState('');
-  const [src, setSrc] = useState('');
+  const [title, setTitle] = useState("");
+  const [src, setSrc] = useState("");
   const [link, setLink] = useState("");
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState(false);
@@ -20,10 +20,17 @@ function Container({ fallback }) {
     setStatus(status);
   };
 
+
   useEffect(() => {
-    getItems().then((data) => setItems(data));
+    getItems().then((data) => {
+      setItems(data);
+      setSrc(data[0].post_url);
+      setTitle(data[0].post_title);
+      setLink(data[0].post_url);
+    }
+    );
   }, []);
-  
+
   
 
 
