@@ -52,15 +52,16 @@ def get_parsed_post(post):
     print("title:", post.title)
     progress_type = assign_type(post.title)
     person, progress = post.title.split("[", 1)
-    gender, age, height = person.split("/")
+    gender, age, height = person.split("/", 2)
     progress = progress.split("]")[0]
     print(progress)
     starting_lbs = get_starting_lbs(progress)
     current_lbs = get_current_lbs(progress)
     change_in_lbs = get_change_lbs(progress)
     height_inches = height_to_inches(height)
+    age_checked = mark_negative_if_not_valid_int(age)
     db_post = {"post_id": post.id, "post_title": post.title, "post_permalink": post.permalink, "person_details": person,
-               "gender": gender, "age": int(age), "height": height_inches, "progress": progress, "starting_lbs": starting_lbs, "current_lbs": current_lbs,
+               "gender": gender, "age": age_checked, "height": height_inches, "progress": progress, "starting_lbs": starting_lbs, "current_lbs": current_lbs,
                "change_in_lbs": change_in_lbs, "type": progress_type, "manual_fix": False, "needs_check": False,
                "post_url": post.url, "post_thumbnail": post.thumbnail, "post_preview": post.preview['images'][0]['resolutions']}
     return mark_for_cleanup(db_post)
