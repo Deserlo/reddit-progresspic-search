@@ -2,6 +2,7 @@ from flask import Flask
 import os
 import pprint
 import datetime as dt
+import re
 from src.mongo import Mongo
 from decouple import config
 import pprint
@@ -78,6 +79,7 @@ def format_query(args):
     height = format_height(parse_arg(args, 'height='))
     range_start = parse_arg(args, 'starting=')
     range_end = parse_arg(args, 'current=')
+    regx = re.compile("jpg$", re.IGNORECASE)
     query = {"$and": [{"gender": {"$in": genders}},
                       {"type": {"$in": types}},
                       {"height": {"$gte": parse_beg_range(height),
@@ -87,7 +89,8 @@ def format_query(args):
                       {"starting_lbs": {"$gte": parse_beg_range(range_start),
                                         "$lte": parse_end_range(range_start)}},
                       {"current_lbs": {"$gte": parse_beg_range(range_end),
-                                       "$lte": parse_end_range(range_end)}}
+                                       "$lte": parse_end_range(range_end)}},
+                      {"post_url": regx}
                       ]}
     return query
 
