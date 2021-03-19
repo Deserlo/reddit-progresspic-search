@@ -58,7 +58,7 @@ class Mongo(object):
     def filter(self, query):
         '''
         '''
-        cursor = self.client.find(query)
+        cursor = self.client.find(query).sort("_id", -1)
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
         return json_docs
