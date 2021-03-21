@@ -6,4 +6,4 @@
 
 ## Live App (in development)
 
-[https://reddit-progress-pics.herokuapp.com/](https://reddit-progress-pics.herokuapp.com/)
+[https://findmeprogresspics.herokuapp.com/](https://findmeprogresspics.herokuapp.com/)
