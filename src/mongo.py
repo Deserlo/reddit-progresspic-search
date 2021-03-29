@@ -57,6 +57,17 @@ class Mongo(object):
         json_docs = dumps(list_cur)
         return json_docs
 
+    def main(self):
+        '''
+        Shows most recent
+        '''
+        regx = re.compile("jpg$", re.IGNORECASE)
+        cursor = self.client.find({"post_url": regx}).sort(
+            "_id", -1).limit(page_size)
+        list_cur = list(cursor)
+        json_docs = dumps(list_cur)
+        return json_docs
+
     def filter(self, query):
         '''
         '''
