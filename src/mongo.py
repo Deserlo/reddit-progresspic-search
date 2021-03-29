@@ -4,8 +4,10 @@ from bson.objectid import ObjectId
 import datetime
 from decouple import config
 import pprint
+import json
+import re
 
-page_size = 6
+page_size = 36
 
 
 class Mongo(object):
@@ -58,13 +60,15 @@ class Mongo(object):
     def filter(self, query):
         '''
         '''
-        cursor = self.client.find(query).sort("_id", -1)
+        cursor = self.client.find(query).sort("_id", -1).limit(page_size)
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
         return json_docs
 
-    def page(self, last_id):
-        cursor = self.client.find({'_id' > last_id}).limit(page_size)
+    def page(self, query):
+        '''
+        '''
+        cursor = self.client.find(query).sort("_id", -1).limit(page_size)
         list_cur = list(cursor)
         json_docs = dumps(list_cur)
         return json_docs

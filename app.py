@@ -4,8 +4,10 @@ import pprint
 import datetime as dt
 import re
 from src.mongo import Mongo
+from bson.objectid import ObjectId
 from decouple import config
 import pprint
+import json
 
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -27,21 +29,45 @@ def retrieve_posts():
     return docs
 
 
-def format_beginning(input):
-    print("input before:", input)
-    if int(input) == 0:
-        new_input = int(input)-1
-        print('new input:', str(new_input))
-        return new_input
-    else:
-        return int(input)
+def format_query(args):
+    regx = re.compile("jpg$", re.IGNORECASE)
+    addl = json.loads(args)
+    for a, b in addl.items():
+        if "height" in a.lower():
+            addl['height'] = int(b)
+        if "age" in a.lower():
+            addl['age'] = {"$gte": int(
+                b.split("-")[0]), "$lte": int(b.split("-")[1])}
+        if "starting" in a.lower():
+            addl[a] = {"$gte": int(
+                b.split("-")[0]), "$lte": int(b.split("-")[1])}
+        if "change" in a.lower():
+            addl[a] = {"$gte": int(
+                b.split("-")[0]), "$lte": int(b.split("-")[1])}
+        if "current" in a.lower():
+            addl[a] = {"$gte": int(
+                b.split("-")[0]), "$lte": int(b.split("-")[1])}
+        if "type" in a.lower():
+            addl['type'] = int(b)
+    query = {"$and": [{"post_url": regx}, addl]}
+    print("add'l query:", addl)
+    print("filtering posts:", query)
+    return query
 
 
-def format_gender(g):
-    if g == "all":
-        return ["F", "M"]
+def format_next_query(args, last_id):
+    regx = re.compile("jpg$", re.IGNORECASE)
+    if args == "all":
+        query = {"$and": [{"post_url": regx},
+                          {'_id': {"$lt": ObjectId(last_id)}}
+                          ]}
     else:
-        return [g, ]
+        addl = format_query(args)
+        query = {"$and": [{"post_url": regx},
+                          {'_id': {"$lt": ObjectId(last_id)}},
+                          addl]}
+        print(query)
+    return query
 
 
 def format_type(t):

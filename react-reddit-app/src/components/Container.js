@@ -11,7 +11,8 @@ function Container({ fallback }) {
   const [link, setLink] = useState("");
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState(false);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("all");
+  const [lastId, setLastId] = useState("");
 
   const showViewer = (title, thumbnail_src, link, status) => {
     setTitle(title);
@@ -27,6 +28,7 @@ function Container({ fallback }) {
       setSrc(data[0].post_url);
       setTitle(data[0].post_title);
       setLink(data[0].post_url);
+      setLastId(data[data.length - 1]._id['$oid']);
     }
     );
   }, []);
@@ -38,23 +40,27 @@ function Container({ fallback }) {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     //alert(JSON.stringify(data));
-    let args = ""
-    for (const property in data){
-      args+= "prop" + property + "="+ data[property];
+    let args = "";
+
+    for (const property in data) {
+      args += "prop" + property + "=" + data[property];
     }
-    for (const property in data){
-      if (data[property] == "all" || data[property].startsWith("0-") ){
+    for (const property in data) {
+      if (data[property] == "all" || data[property].startsWith("0-")) {
         delete data[property];
       }
     }
+
     setQuery(JSON.stringify(data));
     let query = "/search/" + args;
     let items = fetch(query).then((res) => res.json().then((data)=>setItems(data)));
+    let query = "/search/" + JSON.stringify(data);
     let items = fetch(query).then((res) => res.json().then((data) => {
       setItems(data);
       setSrc(data[0].post_url);
       setTitle(data[0].post_title);
       setLink(data[0].post_url);
+      setLastId(data[data.length - 1]._id['$oid']);
     }
     ));
   }
@@ -134,7 +140,7 @@ function Container({ fallback }) {
           <option value="1">Loss</option>
           <option value="2">Gain</option>
         </select>
-        <select name="starting" ref={register}>
+          <select name="starting_lbs" ref={register}>
           <option value="0-2000">Starting Weight</option>
           <option value="1-99">0-99</option>
           <option value="100-119">100-119</option>
@@ -149,7 +155,7 @@ function Container({ fallback }) {
           <option value="420-499">420-499</option>
           <option value="500-800">500-800</option>
         </select>
-        <select name="current" ref={register}>
+          <select name="current_lbs" ref={register}>
           <option value="0-2000">Goal Weight</option>
           <option value="1-99">0-99</option>
           <option value="100-119">100-119</option>
@@ -180,6 +186,25 @@ function Container({ fallback }) {
       );
   }
 
+  function nextPage({ query }, { lastId }) {
+    let args = query;
+
+    let nextQuery = "/next/" + args + "/" + lastId;
+    let items = fetch(nextQuery).then((res) => res.json().then((data) => {
+      if (!data || data.length === 0) {
+        return 0;
+      }
+      else {
+        setItems(data);
+        setSrc(data[0].post_url);
+        setTitle(data[0].post_title);
+        setLink(data[0].post_url);
+        setLastId(data[data.length - 1]._id['$oid']);
+      }
+    }
+    ));
+
+  }
   function List({ items, fallback }) {
     if (!items || items.length === 0) {
       return fallback;
@@ -242,6 +267,7 @@ function FilterQuery({query}){
         <section id="thumbnails">
           <List items={items}  fallback={"No results found."} />
         </section>
+        <button onClick={() => nextPage({ query }, { lastId })}>Next Page</button>
       </div>
       <First items={items} />
     </div>
