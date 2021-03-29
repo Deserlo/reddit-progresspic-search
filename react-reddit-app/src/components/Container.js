@@ -258,14 +258,14 @@ function FilterQuery({query}){
   return (
     <div>
       <div id="main">
-        <h1>Find Me Progress Photos</h1>
+        <h1>Find Me Progress Pics</h1>
         <FilterNav/>
         <FilterQuery query={query} />
         <div className="modal-modal">
           { status && (<Modal closeModal={() => setStatus(false)}><First items={items} /></Modal>)}
         </div>
         <section id="thumbnails">
-          <List items={items}  fallback={"No results found."} />
+          <List items={items} fallback={"Loading..."} />
         </section>
         <button onClick={() => nextPage({ query }, { lastId })}>Next Page</button>
       </div>
