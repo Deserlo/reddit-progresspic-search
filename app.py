@@ -70,12 +70,12 @@ def format_next_query(args, last_id):
     return query
 
 
-def format_type(t):
-    if t == "all":
+@ app.route('/next/<args>/<last_id>')
+def next(args, last_id):
         return [1, 2]
-    else:
-        return [int(t), ]
-
+    query = format_next_query(str(args), str(last_id))
+    docs = MongoDB.page(query)
+    return docs
 
 def format_height(h):
     if "-" not in h:
