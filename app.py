@@ -13,7 +13,7 @@ import json
 MONGO_URI = os.getenv("MONGO_URI")
 MongoDB = Mongo(MONGO_URI)
 
-#app = Flask(__name__)
+# app = Flask(__name__)
 app = Flask(__name__, static_folder='react-reddit-app/build',
             static_url_path='')
 
@@ -72,64 +72,21 @@ def format_next_query(args, last_id):
 
 @ app.route('/next/<args>/<last_id>')
 def next(args, last_id):
-        return [1, 2]
     query = format_next_query(str(args), str(last_id))
     docs = MongoDB.page(query)
     return docs
 
-def format_height(h):
-    if "-" not in h:
-        h = h + "-" + h
-    return h
 
-
-def parse_arg(arg, name):
-    return str(arg).split(name)[1].split("prop")[0]
-
-
-def parse_beg_range(range):
-    if int(range.split("-")[0]) == 0:
-        return int(range.split("-")[0])-1
-    else:
-        return int(range.split("-")[0])
-
-
-def parse_end_range(range):
-    return int(range.split("-")[1])
-
-
-def format_query(args):
-    genders = format_gender(parse_arg(args, 'gender='))
-    types = format_type(parse_arg(args, 'type='))
-    range_age = parse_arg(args, 'age=')
-    height = format_height(parse_arg(args, 'height='))
-    range_start = parse_arg(args, 'starting=')
-    range_end = parse_arg(args, 'current=')
-    regx = re.compile("jpg$", re.IGNORECASE)
-    query = {"$and": [{"gender": {"$in": genders}},
-                      {"type": {"$in": types}},
-                      {"height": {"$gte": parse_beg_range(height),
-                                  "$lte": parse_end_range(height)}},
-                      {"age": {"$gte": parse_beg_range(
-                          range_age), "$lte": parse_end_range(range_age)}},
-                      {"starting_lbs": {"$gte": parse_beg_range(range_start),
-                                        "$lte": parse_end_range(range_start)}},
-                      {"current_lbs": {"$gte": parse_beg_range(range_end),
-                                       "$lte": parse_end_range(range_end)}},
-                      {"post_url": regx}
-                      ]}
-    return query
-
-
-# @app.route('/search/<gender>/<type>/<starting>/<pounds>', methods=['GET'])
 @ app.route('/search/<args>')
 def filter_posts(args):
     print(str(args))
     query = format_query(args)
-    print(query)
     docs = MongoDB.filter(query)
     print(docs)
-    return docs
+    if len(docs) > 0:
+        return docs
+    else:
+        return "no data"
 
 
 if __name__ == "__main__":
